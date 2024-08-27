@@ -35,3 +35,9 @@ async function better(name: string, age: number) {
 }
 
 better("shamsher", 30);
+
+
+
+
+
+
