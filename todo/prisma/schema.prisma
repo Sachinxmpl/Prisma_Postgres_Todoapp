@@ -18,7 +18,7 @@ model TodoUser {
   id Int @id @default(autoincrement())
   username String @unique
   password String 
-  todos Todo[]
+  todos Todo[] 
 }
 
 model Todo{

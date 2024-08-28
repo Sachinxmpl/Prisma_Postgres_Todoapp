@@ -2,11 +2,14 @@ import express , {Request , Response , NextFunction} from "express";
 const app = express();
 
 import { PrismaClient } from "@prisma/client";
-import { wrap } from "module";
+import cookieParser  from "cookie-parser" 
+
 
 const prisma = new PrismaClient();
 
 app.use(express.json())
+app.use(cookieParser())
+
 
 type AsyncRouteHandler = (
     req: Request,
@@ -52,19 +55,8 @@ app.get("/alltodos/:id" ,wrapAsync(async(req : Request, res : Response)=>{
         }
 }))
 
-class ExpressError extends Error {
-    constructor( private message : string  , private statusCode :  number ){
-        super() ; 
-        this.message  = message ; 
-        this.statusCode = statusCode ;
-    }
-}
+// write a custom express Class ExpressError that sets message and statuscode (remember typescript file
 
-
-app.use((err : ExpressError, req : Request, res : Response, next : NextFunction) => {
-    let { statusCode = 500, message = "This is DEFAULT error message " } = err;
-    res.status(statusCode).render("./lists/error.ejs", { error: err });
-  });
 
 
 
