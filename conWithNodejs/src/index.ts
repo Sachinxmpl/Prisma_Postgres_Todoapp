@@ -13,31 +13,25 @@ import { Client } from "pg";
 // run();
 
 async function better(name: string, age: number) {
-  const client = new Client({
-    host: "localhost",
-    port: 5432,
-    database: "sample",
-    user: "postgres",
-    password: "router",
-  });
-  try {
-    await client.connect();
-    await client.query(
-      `CREATE TABLE IF NOT EXISTS users(id SERIAL PRIMARY KEY, name VARCHAR(50), age INT);`
-    );
-    const insertQuery = `INSERT INTO users (name, age) VALUES ($1, $2);`;
-    await client.query(insertQuery, [name, age]);
-  } catch (e) {
-    console.log(e);
-  } finally {
-    await client.end();
-  }
+        const client = new Client({
+                host: "localhost",
+                port: 5432,
+                database: "sample",
+                user: "postgres",
+                password: "router",
+        });
+        try {
+                await client.connect();
+                await client.query(
+                        `CREATE TABLE IF NOT EXISTS users(id SERIAL PRIMARY KEY, name VARCHAR(50), age INT);`
+                );
+                const insertQuery = `INSERT INTO users (name, age) VALUES ($1, $2);`;
+                await client.query(insertQuery, [name, age]);
+        } catch (e) {
+                console.log(e);
+        } finally {
+                await client.end();
+        }
 }
 
 better("shamsher", 30);
-
-
-
-
-
-

@@ -9,3 +9,5 @@ ORMs let you easily interact with your database without worrying too much about 
 - abstraction that lests you filp the database , prisma orm can be used with mongoDB , mysql etc.
 - type safety and ease of autocompletion 
 
+### Some 4 pitch words of prisma
+1 Database migration 
