@@ -5,9 +5,11 @@ import { PrismaClient } from "@prisma/client";
 const router = express.Router();
 
 const Prisma = new PrismaClient();
+import { isLoggedIN } from "./utils";
 
 router.post(
             "/createtodo",
+            isLoggedIN , 
             wrapAsync(async (req: Request, res: Response) => {
                         const { title, description }: { title: string; description: string } =
                                     req.body;
@@ -25,6 +27,7 @@ router.post(
 
 router.get(
             "/alltodos",
+            isLoggedIN , 
             wrapAsync(async (req: Request, res: Response) => {
                         const todos = await Prisma.todo.findMany({});
                         res.json(todos);
@@ -33,6 +36,7 @@ router.get(
 
 router.get(
             "/alltodos/:id",
+            isLoggedIN,
             wrapAsync(async (req: Request, res: Response) => {
                         const { id } = req.params;
                         const selectedtodo = await Prisma.todo.findUnique({

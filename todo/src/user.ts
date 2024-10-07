@@ -7,7 +7,7 @@ import { wrapAsync } from "./error";
 
 const prisma = new PrismaClient()
 
-const tokenSecret =
+export const tokenSecret =
 	"sdfadslfjthisiasecretfilethatwilljustfindandfillthegoodofthebest";
 
 

@@ -17,7 +17,8 @@ const error_1 = require("./error");
 const client_1 = require("@prisma/client");
 const router = express_1.default.Router();
 const Prisma = new client_1.PrismaClient();
-router.post("/createtodo", (0, error_1.wrapAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const utils_1 = require("./utils");
+router.post("/createtodo", utils_1.isLoggedIN, (0, error_1.wrapAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, description } = req.body;
     const sampleId = 1;
     const newtodo = yield Prisma.todo.create({
@@ -29,11 +30,11 @@ router.post("/createtodo", (0, error_1.wrapAsync)((req, res) => __awaiter(void 0
     });
     res.json(newtodo);
 })));
-router.get("/alltodos", (0, error_1.wrapAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/alltodos", utils_1.isLoggedIN, (0, error_1.wrapAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const todos = yield Prisma.todo.findMany({});
     res.json(todos);
 })));
-router.get("/alltodos/:id", (0, error_1.wrapAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/alltodos/:id", utils_1.isLoggedIN, (0, error_1.wrapAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const selectedtodo = yield Prisma.todo.findUnique({
         where: { id: parseInt(id) },

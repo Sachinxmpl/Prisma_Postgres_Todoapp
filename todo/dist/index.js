@@ -16,6 +16,12 @@ const error_1 = require("./error");
 app.use("/user", user_1.default);
 app.use("/todo", todo_1.default);
 app.use(error_1.handleError);
+// app.use((err : CustomError , req :Request , res :Response , next :NextFunction)=>{
+//         res.json({
+//                 message : err.message || "Default error " , 
+//                 status : err.statusCode || 500
+//         })
+// })
 app.listen(3000, () => {
     console.log("running");
 });

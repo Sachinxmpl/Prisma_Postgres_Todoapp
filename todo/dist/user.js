@@ -12,16 +12,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.tokenSecret = void 0;
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const client_1 = require("@prisma/client");
 const error_1 = require("./error");
 const prisma = new client_1.PrismaClient();
-const tokenSecret = "sdfadslfjthisiasecretfilethatwilljustfindandfillthegoodofthebest";
+exports.tokenSecret = "sdfadslfjthisiasecretfilethatwilljustfindandfillthegoodofthebest";
 router.post("/signup", (0, error_1.wrapAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, password } = req.body;
-    const user_token = jsonwebtoken_1.default.sign({ username, password }, tokenSecret, { expiresIn: "2h" });
+    const user_token = jsonwebtoken_1.default.sign({ username, password }, exports.tokenSecret, { expiresIn: "2h" });
     res.cookie("user-auth", user_token);
     const newUser = yield prisma.todoUser.create({
         data: {
@@ -59,7 +60,7 @@ router.post("/login", (0, error_1.wrapAsync)((req, res, next) => __awaiter(void 
             "message": "User not found please singup first "
         });
     }
-    const user_token = jsonwebtoken_1.default.sign({ username, password }, tokenSecret, { expiresIn: "2h" });
+    const user_token = jsonwebtoken_1.default.sign({ username, password }, exports.tokenSecret, { expiresIn: "2h" });
     res.cookie("user-auth", user_token);
     res.status(200).json({
         "status": "success",

@@ -8,11 +8,6 @@ class CustomError extends Error {
                         super(); 
                         this.statusCode = statusCode;
                         this.message= message ; 
-
-                        
-                        if (Error.captureStackTrace) {
-                                    Error.captureStackTrace(this, this.constructor);
-                        }
             }
 }
 
@@ -25,14 +20,21 @@ function wrapAsync(fn:any) {
 }
 
 
-const handleError = (err: CustomError, req: Request, res: Response, next: NextFunction) => {
+const handleError = (err: CustomError, req: any, res: any, next: any) => {
             const status = err.statusCode || 500; 
             const message = err.message || 'Internal Server Error';
 
-            res.status(status).json({
-                        success: false,
-                        status,
-                        message
+            if(err instanceof CustomError) {
+                        return res.status(status).json({
+                                    "error" : message  , 
+                                    "success" : false 
+                        })
+            }
+
+
+            return res.status(status).json({
+                        "success": false,
+                        "error" :      "Unidenfitied error"
             });
 };
 
