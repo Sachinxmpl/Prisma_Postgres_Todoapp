@@ -10,53 +10,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = require("@prisma/client");
-const prisma = new client_1.PrismaClient();
-function createUser(name, password, email, age) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const res = yield prisma.user.create({
+const prismaClient = new client_1.PrismaClient();
+function createUser(_a) {
+    return __awaiter(this, arguments, void 0, function* ({ name, email, password }) {
+        const response = yield prismaClient.user.create({
             data: {
                 name,
                 email,
                 password,
-                age,
-            },
-            select: {
-                name: true,
-                email: true,
-                age: true,
-                password: false
+                role: "Admin"
             }
         });
-        console.log(res);
+        console.log(response);
     });
 }
-// createUser("shasmher" , "passwword232" , "sachinxmpl6@gmailc.on" , 23)
-// createUser("sachin" , "sachinxmpl6" , "kck588385@gmail.com" , 40 )
-function update(name, email) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const res = yield prisma.user.update({
-            where: { email: email },
-            data: {
-                name: name
-            },
-            select: {
-                password: false,
-                name: true,
-                email: true,
-                id: true,
-                age: true
-            }
-        });
-        console.log(res);
-    });
-}
-// update("updateduser" , "kck588385@gmail.com")
-function getUser() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const res = yield prisma.user.findMany({
-            where: { age: { gt: 20 } }
-        });
-        console.log(res);
-    });
-}
-getUser();
+createUser({ name: "Sachin", email: "sachinxmpl6@gmail.com", password: "password" });
